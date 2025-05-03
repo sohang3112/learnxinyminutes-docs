@@ -1,16 +1,17 @@
-NB. Comments in J are prefixed by NB. (the dot after NB is necessary!)
+NB. Comments in J are prefixed by NB. (the dot at the end is necessary!)
 
 NB. TODO:
 NB.  * [ ] tacit functions, script execution (script is basically eval - evals a string): https://www.jsoftware.com/help/learning/04.htm
 NB.  * [ ] booleans are represented by 1, 0 (are there any aliases like true, false ?)
 NB.  * [ ] more arithmetic operations - sin, log, exponentiation
+NB.  * [ ] complex number operations
 NB.  * [ ] binary level operations (MAYBE same as booleans): &, |, xor
 NB.  * [ ] array indexing: https://code.jsoftware.com/wiki/Studio/Indexing
 NB.  * [ ] operations (eg. take, drop, inner product, outer product, matrix multiplication)
 NB.  * [ ] string operations (eg. split, join, replace, etc)
 NB. some basic math, array operations are at https://code.jsoftware.com/wiki/User:Devon_McCormick/MinimalBeginningJ
-NB.  * [ ] read input from terminal
-NB.  * [ ] file I/O
+NB.  * [ ] read input from terminal (readline, readchar); print formatted output
+NB.  * [ ] file I/O & exceptions: https://www.jsoftware.com/help/jforc/input_and_output.htm; https://code.jsoftware.com/wiki/Vocabulary/Foreigns#m1 - J Foreigns (env vars, files, etc)
 NB.  * [ ] exit script
 NB.  * [ ] if-else, explicit loops : https://code.jsoftware.com/wiki/Doc/J4APL#Execution_Control
 NB.  * [ ] import modules (installed external packages)
@@ -32,7 +33,7 @@ NB. 3j_2.5 is a complex number having real part 3, imaginary part -2.5
 _     NB. Infinity
 __    NB. Negative Infinity  
 
-NB. An expression, showing some operations (here % is divide). 
+NB. An expression, showing some operations: 
 NB. In J, there's no order of operations: everything is parsed right-to-left.
 NB. This is equal to 5 + (4 x (2 % (5 - (3 ^ 2)))) = 3:
 5 + 4 * 2 % 5 - 3 ^ 2
@@ -62,6 +63,12 @@ NB. Matrices can be constructed using $ (reshape):
 NB. Single-argument $ gives you the dimensions back:
 $ 4 3 $ i. 5            NB. 4 3
 
+NB. Indexing - access & update elements of an array / matrix: https://code.jsoftware.com/wiki/Studio/Indexing
+NB. Note that J uses 0-based indexing, so the first element is at index 0.
+0 { 4 3 $ i. 5          NB. first row of the matrix: 0 1 2
+(<2 2) { 4 3 $ i. 5     NB. element at 2,2: 3  (note that first 2 2 has to be boxed using <)
+_1 (<1 0) } 4 3 $ i. 5   NB. update element at 1,0 to -1 and return the updated matrix
+
 NB. Global variables can be assigned using =:
 NB. Let's calculate the mean value of a vector of numbers:
 A =: 10 60 55 23
@@ -75,8 +82,8 @@ $A                       NB. 4
 NB. Mean:
 (+/A) % ($A)             NB. 37
 
-NB. We can define this as a monadic verb (function), i.e. it has single argument "y":.
-mean =: 3 : 0            NB. "3 : 0" is header for monadic verbs
+NB. We can define this as an explicit monadic verb (function), i.e. it has single argument "y" explicitly used:
+mean =: 3 : 0            NB. "3 : 0" is header for explicit monadic verbs
    sum =. +/y            NB. local variable (scoped to function) defined using =.
    sum % $y
 )     NB. closing bracket ends verb definition
@@ -84,7 +91,7 @@ mean A                   NB. 37
 
 NB. We can also define dyadic verbs having 2 arguments: "x" (left) and "y" (right).
 NB. A function for finding positive difference of 2 numbers:
-posdiff =: 4 : 0         NB. "4 : 0" header for dyadic verbs
+posdiff =: 4 : 0         NB. "4 : 0" header for explicit dyadic verbs
    larger  =. x >. y     NB. >. is maximum
    smaller =. x <. y     NB. <. is minimum
    larger - smaller 
@@ -97,7 +104,7 @@ NB. preceded by 4 : (for dyadic verb), or 3 : (for monadic verb)
 posdiff =: 4 : '(x >. y) - (x <. y)'
 4 posdiff 3             NB. 1
 
-NB. Multi-line text (character string with zero or more newlines) assigned to a variable
+NB. Multi-line noun (text: character string with zero or more newlines) assigned to a variable
 txt =: 0 : 0            NB. "0:0" is header for multi-line strings 
 This is a multi-line
 string.

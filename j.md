@@ -17,7 +17,7 @@ TODO: insert code from *learnj.ijs* into this codeblock:
 
 ## Further Reading
 
-- [J Wiki](https://code.jsoftware.com/wiki/Main_Page)
+- [J Resources for New Users](https://code.jsoftware.com/wiki/For_New_Users)
 - [Minimal J for Beginners](https://code.jsoftware.com/wiki/User:Devon_McCormick/MinimalBeginningJ)
 - [J Reference](https://code.jsoftware.com/mediawiki/images/5/53/J602_RefCard_color_letter_current.pdf): a 2-page cheatsheet
 - [J for APL Programmers](https://code.jsoftware.com/wiki/Doc/J4APL#J_for_the_APL_Programmer)
